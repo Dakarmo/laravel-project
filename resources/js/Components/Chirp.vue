@@ -2,6 +2,7 @@
 import Dropdown from '@/Components/Dropdown.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DropdownLink from '@/Components/DropdownLink.vue';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useForm } from '@inertiajs/vue3';
@@ -28,6 +29,7 @@ const editing = ref(false);
             <div class="flex justify-between items-center">
                 <div>
                     <span class="text-gray-800">{{ chirp.user.name }}</span>
+                    <small class="ml-2 text-sm text-gray-600">{{ dayjs(chirp.created_at).fromNow() }}</small>
                     <small v-if="chirp.created_at !== chirp.updated_at" class="text-sm text-gray-600"> &middot; edited</small>
                 </div>
                 <Dropdown v-if="chirp.user.id === $page.props.auth.user.id">
@@ -42,6 +44,9 @@ const editing = ref(false);
                         <button class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 transition duration-150 ease-in-out" @click="editing = true">
                             Edit
                         </button>
+                        <DropdownLink as="button" :href="route('chirps.destroy', chirp.id)" method="delete">
+                            Delete
+                        </DropdownLink>
                     </template>
                 </Dropdown>
             </div>

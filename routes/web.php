@@ -38,10 +38,11 @@ Verb   	        URI                   Action	     Route Name
 GET	          /chirps	              index	        chirps.index
 POST          /chirps	              store	        chirps.store
 PUT/PATCH	  /chirps/{chirp}	      update	    chirps.update
+DELETE	      /chirps/{chirp}	      destroy	    chirps.destroy
 
 */
 Route::resource('chirps', ChirpController::class)
-    ->only(['index', 'store', 'update'])
+    ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
